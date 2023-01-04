@@ -12,7 +12,7 @@
 				"allowNumber": false
 			}
 		],
-    "sort-keys": ["error", "asc", { "caseSensitive": false, "natural": true }]
+		"sort-keys": ["error", "asc", { "caseSensitive": false, "natural": true }]
 	},
 	"ignorePatterns": ["src/**/*.test.ts", "src/frontend/generated/*"]
 }

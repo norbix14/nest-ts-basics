@@ -5,8 +5,10 @@ export interface HttpAdapter {
 }
 
 class PokeapiAdapterFetch implements HttpAdapter {
+	private readonly _fetch = fetch;
+
 	async get<T>(url: string, config = {}): Promise<T> {
-		const response = await fetch(url, config);
+		const response = await this._fetch(url, config);
 		const data: T = await response.json();
 		return data;
 	}

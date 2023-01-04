@@ -5,7 +5,9 @@ import { setupCounter } from './counter';
 import { age, name, proffesion } from './bases/01-types';
 import { address, deptos, zones } from './bases/02-objects';
 import { Animal, Person, Pokemon } from './bases/03-classes';
-import { Pokemon as Poke } from './bases/04-injection';
+import { Pokemon as PokemonInjection } from './bases/04-injection';
+import { Pokemon as PokemonDecorator } from './bases/05-decorators';
+import { Pokemon as PokemonDecoratorTwo } from './bases/06-decorators-two';
 import {
 	PokeapiAdapterAxios,
 	PokeapiAdapterFetch,
@@ -21,11 +23,15 @@ const charmander = new Pokemon(4, 'Charmander');
 const pokeapiAdapterAxios = new PokeapiAdapterAxios();
 const pokeapiAdapterFetch = new PokeapiAdapterFetch();
 
-const pikachu = new Poke(25, 'Pikachu', pokeapiAdapterAxios);
+const pikachu = new PokemonInjection(25, 'Pikachu', pokeapiAdapterAxios);
 // pikachu.getPokemonData().then((data) => console.log(data));
 
-const bulbasaur = new Poke(1, 'Bulbasaur', pokeapiAdapterFetch);
+const bulbasaur = new PokemonInjection(1, 'Bulbasaur', pokeapiAdapterFetch);
 // bulbasaur.getPokemonData().then((data) => console.log(data));
+
+const squirtle = new PokemonDecorator(7, 'Squirtle');
+
+const onix = new PokemonDecoratorTwo(95, 'Onix');
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <div>
@@ -88,6 +94,22 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
     <div class="card">
       <p>My pokemon's name is ${bulbasaur.name}</p>
       <p>It's ID is ${bulbasaur.id}</p>
+    </div>
+
+    <div class="card">
+      <p>My pokemon's name is ${squirtle.name}</p>
+      <p>It's ID is ${squirtle.id}</p>
+    
+      <p>${squirtle.speak()}</p>
+      <p>${squirtle.scream()}</p>
+    </div>
+
+    <div class="card">
+      <p>My pokemon's name is ${onix.name}</p>
+      <p>It's ID is ${onix.id}</p>
+
+      <p>${onix.speak()}</p>
+      <p>${onix.scream()}</p>
     </div>
 
   </div>
