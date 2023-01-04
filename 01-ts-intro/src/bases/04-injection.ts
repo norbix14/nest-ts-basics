@@ -1,26 +1,16 @@
-import axios from 'axios';
 import { PokeapiResponse } from '../interfaces/pokeapi-response.interface';
-
-class Person {
-	public dni: number;
-	public name: string;
-
-	constructor(name: string, dni: number) {
-		this.dni = dni;
-		this.name = name;
-	}
-}
-
-class Animal {
-	constructor(public name: string, public race: string) {}
-}
+import { HttpAdapter } from '../api/pokeapi.adapter';
 
 class Pokemon {
 	private _baseUrl: string = `https://pokeapi.co`;
 	private _api: string = `/api/v2`;
 	private _pokeapiUrl: string = `${this._baseUrl}${this._api}/pokemon`;
 
-	constructor(public readonly id: number, public name: string) {}
+	constructor(
+		public readonly id: number,
+		public name: string,
+		private readonly http: HttpAdapter
+	) {}
 
 	get image(): string {
 		// const imageExtension: string = `.png`
@@ -44,11 +34,12 @@ class Pokemon {
 
 	public async getPokemonData(): Promise<PokeapiResponse> {
 		let name: string = this.name.toLowerCase();
-		const { data } = await axios.get<PokeapiResponse>(
+		const data = await this.http.get<PokeapiResponse>(
 			`${this._pokeapiUrl}/${name}`
 		);
+
 		return data;
 	}
 }
 
-export { Animal, Person, Pokemon };
+export { Pokemon };
